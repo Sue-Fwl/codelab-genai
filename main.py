@@ -15,7 +15,8 @@ def hello_world():
     vertexai.init(project=project, location="us-central1")
     model = GenerativeModel("gemini-1.5-flash")
     animal = request.args.get("animal", "dog") 
-    prompt = f"Give me 10 not so fun facts about {animal}, and right after give me 10 fun facts about cats. Return this as html without backticks."
+    #prompt = f"Give me 10 not so fun facts about {animal}, and right after give me 10 fun facts about cats. Return this as html without backticks."
+    prompt = f"ماهو تحدي علاّم 2024 من سدايا، أعطني إجابة على شكل مقالة صغيرة وضع في عنوانها أن المصمم لهذه الخدمة هو فريق ألف لام ميم"
     response = model.generate_content(prompt)
     return response.text
 
