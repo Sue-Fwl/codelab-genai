@@ -31,7 +31,7 @@ def hello_world():
     model = GenerativeModel("gemini-1.5-flash")
     animal = request.args.get("animal", "dog") 
     #prompt = f"Give me 10 not so fun facts about {animal}, and right after give me 10 fun facts about cats. Return this as html without backticks."
-    prompt = f"ماهو تحدي علاّم 2024 من سدايا، أعطني إجابة على شكل مقالة صغيرة وضع في عنوانها أن المصمم لهذه الخدمة هو فريق ألف لام ميم"
+    prompt = f"أكتب لي مقالة عن فريق ألف لام الميم المؤلف من المهندسات إلهام ومروة وسنا المشاركات في مسابقة علّام 2024، وكيف انهم على كفاءة وخبرة عالية. ثم أضف فقرة في سطر جديد تقوم على أنها مثال عن المشروع. الفقرة عبارة عن لعبة تعليمية لتعليم اللغة العربية تحاكي لعبة ذاكرة الكلمات"
     response = model.generate_content(prompt)
     json_fields = {"prompt": prompt, "response": response}
     logger.debug("Content is generated", extra={"json_fields": json_fields})
