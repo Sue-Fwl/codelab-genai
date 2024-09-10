@@ -1,4 +1,19 @@
 import os
+import json, logging
+
+class JsonFormatter(logging.Formatter):
+    def format(self, record):
+        json_log_object = {
+            "severity": record.levelname,
+            "message": record.getMessage(),
+        }
+        json_log_object.update(getattr(record, "json_fields", {}))
+        return json.dumps(json_log_object)
+logger = logging.getLogger(__name__)
+sh = logging.StreamHandler()
+sh.setFormatter(JsonFormatter())
+logger.addHandler(sh)
+logger.setLevel(logging.DEBUG)
 
 from flask import Flask, request
 
@@ -18,6 +33,8 @@ def hello_world():
     #prompt = f"Give me 10 not so fun facts about {animal}, and right after give me 10 fun facts about cats. Return this as html without backticks."
     prompt = f"ماهو تحدي علاّم 2024 من سدايا، أعطني إجابة على شكل مقالة صغيرة وضع في عنوانها أن المصمم لهذه الخدمة هو فريق ألف لام ميم"
     response = model.generate_content(prompt)
+    json_fields = {"prompt": prompt, "response": response}
+    logger.debug("Content is generated", extra={"json_fields": json_fields})
     return response.text
 
 if __name__ == "__main__":
